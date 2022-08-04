@@ -6,10 +6,10 @@ $words = ["forchetta", "ragazza", "casa", "cancello"];
 <!DOCTYPE html>
 <html>
 <head>
-<title>Embed PHP in a .html File</title>
+<title>Tranlate</title>
 </head>
 <body>
-    <form>
+    <form action="answers.php" method="POST">
         <table>
             <thead>
                 <tr>
@@ -19,10 +19,10 @@ $words = ["forchetta", "ragazza", "casa", "cancello"];
             </thead>
             <tbody>
                 <?php
-                for ($count = 0; $count < 4; $count++){
+                for ($count = 0; $count < sizeof($words); $count++){
                     echo "<tr>" . "\n";
                     echo "<td>" . $words[$count] . "</td>" . "\n";
-                    echo "<td>" . "<input type=\"text\" >"   . "</td>" . "\n";
+                    echo "<td>" . "<input type=\"text\" name=\"${words[$count]}\">"   . "</td>" . "\n";
                     
                     
                     echo "</tr>". "\n";
@@ -31,6 +31,8 @@ $words = ["forchetta", "ragazza", "casa", "cancello"];
             </tbody>
             
         </table>
+
+        <input type="submit">
     </form>
 </body>
 </html>
