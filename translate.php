@@ -3,6 +3,11 @@ $words = ["forchetta", "ragazza", "casa", "cancello"];
 
 ?>
 
+<!--
+    Displays a table with Italian words to translate, with a box next to each one for a tranlation.
+    Sends the tranlations to the answers page.
+-->
+
 <!DOCTYPE html>
 <html>
 <head>

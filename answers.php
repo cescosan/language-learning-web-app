@@ -4,6 +4,11 @@ $translations = ["fork", "girl", "house", "gate"];
 
 ?>
 
+<!--
+   Displays the translation for each Italian word with buttons next to each for marking.
+   Sends marks to the results page.
+-->
+
 <!DOCTYPE html>
 
 

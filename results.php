@@ -4,6 +4,10 @@ $translations = ["fork", "girl", "house", "gate"];
 
 ?>
 
+<!--
+    Displays a table with the mark for each tranlation.  
+-->
+
 <!DOCTYPE html>
 
 
