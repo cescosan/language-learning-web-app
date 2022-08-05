@@ -1,6 +1,13 @@
 <?php
-$words = ["forchetta", "ragazza", "casa", "cancello"];
-$translations = ["fork", "girl", "house", "gate"];
+$translations = [];
+
+$w = fopen("words.txt", "r");
+$t = fopen("translations.txt", "r");
+
+
+for($count = 0; $count < 10; $count++) {
+    $translations[fgets($w)] = fgets($t);
+}
 
 ?>
 
@@ -14,14 +21,16 @@ $translations = ["fork", "girl", "house", "gate"];
 
 <html>
 <head>
-<title>Answers</title>
+    <title>Answers</title>
+
+    <link href="css/table.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-    <form action="results.php" method="POST">
+    <form action="translate.php" method="POST">
         <table>
             <thead>
                 <tr>
-                    <th>Words</th>
+                    <th>Vocabulary</th>
                     <th>Correct Translations</th>
                     <th>My Answers</th>
                     
@@ -29,12 +38,22 @@ $translations = ["fork", "girl", "house", "gate"];
             </thead>
             <tbody>
                 <?php
-                for ($count = 0; $count < sizeof($words); $count++){
+                foreach ($_POST as $key => $value){
                     echo "<tr>" . "\n";
-                    echo "<td>" . $words[$count] . "</td>" . "\n";
-                    echo "<td>" . $translations[$count]   . "</td>" . "\n";
-                    echo "<td>" . $_POST[$words[$count]] . "</td>" . "\n";
-                    echo "<td>" . "<label for=\"c$count\">Correct</label>"  . "<input id=\"c$count\" name=\"$count\" type=\"radio\" value=\"Correct\">" . "<label for=\"i$count\">Incorrect</label>" . "<input id=\"i$count\" name=\"$count\" type=\"radio\" value=\"Incorrect\">" . "</td>" . "\n";
+
+                    //undoing automatic conversion from space to underscore in $_POST
+                    echo "<td>" . str_replace("_", " ", $key) . "</td>" . "\n"; 
+                    echo "<td>" . $translations[str_replace("_", " ", $key)]   . "</td>" . "\n";
+
+
+                    echo "<td>" . $value . "</td>" . "\n";
+                    echo "<td>"
+                    . "<label for=\"correct$key\"><img src=\"assets\checkmark.jpg\"></label>"
+                    . "<input id=\"correct$key\" name=\"$key\" type=\"radio\" value=\"correct\">"
+                    . "<label for=\"incorrect$key\"><img src=\"assets\cross.jpg\"></label>"
+                    . "<input id=\"incorrect$key\" name=\"$key\" type=\"radio\" value=\"incorrect\">"
+                    . "</td>"
+                    . "\n";
                     
                     echo "</tr>". "\n";
                 }
