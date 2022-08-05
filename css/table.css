@@ -1,0 +1,22 @@
+table {
+    border-collapse: collapse;
+    width: 50%;
+}
+
+tr {
+    border: 3px solid;
+}
+
+
+th, td {
+    padding: 10px;
+}
+
+/* answers */
+img {
+    height: 8%;
+    width: 8%;
+}
+
+
+
