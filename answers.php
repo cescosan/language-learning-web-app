@@ -1,14 +1,11 @@
 <?php
-$translations = [];
 
-$w = fopen("words.txt", "r");
-$t = fopen("translations.txt", "r");
+session_start();
 
+print_r($_SESSION);
 
-for($count = 0; $count < 10; $count++) {
-    $translations[fgets($w)] = fgets($t);
-}
-
+$translations = $_SESSION["vocab"];
+$_SESSION["initial"] = FALSE;
 ?>
 
 <!--
