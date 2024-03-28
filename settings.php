@@ -2,7 +2,6 @@
 
 <?php
 
-//starts a new session, brings in vocab and translations
 
 //intial is TRUE until the first translations are done
 

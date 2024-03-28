@@ -3,42 +3,53 @@
 
 session_start();
 
-$w = fopen("words.txt", "r");
-$t = fopen("translations.txt", "r");
 
 
-print_r($_POST);
-// todo: need to have start and end points; maybe best to put vocab with translations into db
-for($count = $_POST["start"] - 1; $count <= $_POST["end"] - 1; $count++) {
-    $translations[fgets($w)] = fgets($t);
-}
-
-fclose($w);
-fclose($t);
 
 
-$_SESSION["vocab"] = $translations;
-$_SESSION["initial"] = TRUE;
 
 
 //first attempt to translate all words in the set, then just those got wrong
-if($_SESSION["initial"] != TRUE) {
+if($_SESSION["initial"] == TRUE) {
+    
+    // todo: maybe best to put vocab with translations into db
+    $w = fopen("words.txt", "r");
+    $t = fopen("translations.txt", "r");
+
+
+    //combining vocab and translations into single associative array
+    for($count = 0; $count <= $_POST["end"] - 1; $count++) {
+        $translations[fgets($w)] = fgets($t);
+    }
+
+    fclose($w);
+    fclose($t);
+
+    //keeping just the vocab specified on previous page
+    array_splice($translations, 0, $_POST["start"] - 1);
+
+    
+    $_SESSION["vocab"] = $translations;
+
+
+    
+    $updated = $_SESSION["vocab"];
+    $amount = sizeof($updated);
+}
+else {
+    
+    
+
     $updated = [];
     foreach($_POST as $key => $value) {
         if ($value == "incorrect") {
             //all spaces in $_POST strings are converted to underscores; need to be converted back to match with $_SESSION["vocab"]
             $formatted_key = str_replace("_", " ", $key);
-            echo $formatted_key;
             $updated[$formatted_key] = $_SESSION["vocab"][$formatted_key];
 
         }
     }
-
     $amount = sizeof($updated);
-}
-else {
-    $updated = $_SESSION["vocab"];
-    $amount = sizeof($_SESSION["vocab"]);
 }
     
     
@@ -65,10 +76,11 @@ else {
             <tbody>
                 <?php
                 
-                //todo: remove autofill
+                //todo: with chrome, there is autofill
                 $indexed = [];
+
                 foreach($updated as $key => $value) {
-                    $indexed[] = $key;
+                    array_push($indexed, $key);
                 }
 
 
